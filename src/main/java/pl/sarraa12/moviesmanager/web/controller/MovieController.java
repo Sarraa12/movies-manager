@@ -5,23 +5,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.sarraa12.moviesmanager.domain.model.Location;
 import pl.sarraa12.moviesmanager.domain.model.Movie;
 import pl.sarraa12.moviesmanager.domain.model.User;
+import pl.sarraa12.moviesmanager.domain.repositories.LocationRepository;
 import pl.sarraa12.moviesmanager.domain.repositories.MovieRepository;
 import pl.sarraa12.moviesmanager.dto.MovieDTO;
 import pl.sarraa12.moviesmanager.dto.SearchMovieDTO;
 import pl.sarraa12.moviesmanager.services.converters.ConverterFactory;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
 
     private MovieRepository movieRepository;
+    private LocationRepository locationRepository;
 
-    public MovieController(MovieRepository movieRepository) {
+    public MovieController(MovieRepository movieRepository, LocationRepository locationRepository) {
         this.movieRepository = movieRepository;
+        this.locationRepository = locationRepository;
     }
 
     // find movie
@@ -36,9 +41,9 @@ public class MovieController {
         if (result.hasErrors()) {
             return "searchMovieForm";
         }
-        model.addAttribute("moviesList", movieRepository.findByOriginalNameAndPolishNameAndYearBetweenAndCountry(
+        model.addAttribute("moviesList", movieRepository.findByOriginalNameAndPolishNameAndPremiereDateBetween(
                 searchMovieDTO.getOriginalName(), searchMovieDTO.getPolishName(), searchMovieDTO.getStartYear(),
-                searchMovieDTO.getEndYear(), searchMovieDTO.getCountry()));
+                searchMovieDTO.getEndYear()));
         return "showAllMovies";
     }
     // all movies
@@ -54,6 +59,8 @@ public class MovieController {
             return "movieForm";
         }
         Movie movieToAdd = ConverterFactory.converterMovie(movieDTO);
+        List<Location> locations = locationRepository.findAll();
+        movieToAdd.setLocations(locations);
         movieRepository.save(movieToAdd);
 
         return "redirect:/movies/showAll";
@@ -61,6 +68,8 @@ public class MovieController {
     @GetMapping("/add")
     public String save(Model model){
         model.addAttribute("movie", new MovieDTO());
+        model.addAttribute("location", locationRepository.findAll());
+
         return "movieForm";
     }
     // delete movie

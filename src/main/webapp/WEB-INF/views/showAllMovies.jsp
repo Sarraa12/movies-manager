@@ -34,7 +34,7 @@
                     <th>Original name</th>
                     <th>Polish name</th>
                     <th>Year</th>
-                    <th>Country</th>
+                    <th>Location</th>
                     <th>Action</th>
                 </tr>
                 <c:forEach items="${moviesList}" var="movie">
@@ -42,8 +42,8 @@
                         <td>${movie.id}</td>
                         <td>${movie.originalName}</td>
                         <td>${movie.polishName}</td>
-                        <td>${movie.year}</td>
-                        <td>${movie.country}</td>
+                        <td>${movie.premiereDate}</td>
+                        <td>${movie.locations}</td>
                         <td>
                             <sec:authorize access="hasRole('ADMIN')">
                             <p><a href=http://localhost:8080/movies/delete/${movie.id}>Delete</a></p>

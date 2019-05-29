@@ -8,8 +8,7 @@ public class ConverterFactory {
         Movie movie = new Movie();
         movie.setOriginalName(movieDTO.getOriginalName());
         movie.setPolishName(movieDTO.getPolishName());
-        movie.setYear(movieDTO.getYear());
-        movie.setCountry(movieDTO.getCountry());
+        movie.setPremiereDate(movieDTO.getPremiereDate());
         return movie;
     }
 
@@ -17,8 +16,7 @@ public class ConverterFactory {
         MovieDTO movieDTO = new MovieDTO();
         movieDTO.setOriginalName(movie.getOriginalName());
         movieDTO.setPolishName(movie.getPolishName());
-        movieDTO.setYear(movie.getYear());
-        movieDTO.setCountry(movie.getCountry());
+        movieDTO.setPremiereDate(movie.getPremiereDate());
         return movieDTO;
     }
 }

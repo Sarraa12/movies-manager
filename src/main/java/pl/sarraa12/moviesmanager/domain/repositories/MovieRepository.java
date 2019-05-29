@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    List<Movie> findByOriginalNameAndPolishNameAndYearBetweenAndCountry(
-            String originalName, String polishName, LocalDate startDate, LocalDate endDate, String country);
+    List<Movie> findByOriginalNameAndPolishNameAndPremiereDateBetween(
+            String originalName, String polishName, LocalDate startDate, LocalDate endDate);
 }

@@ -40,12 +40,12 @@
                     <form:input path="polishName" required="true" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="year">Year</form:label>
-                    <form:input path="year" type="date" class="form-control"/>
+                    <form:label path="premiereDate">Date of premiere</form:label>
+                    <form:input path="premiereDate" type="date" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="country">Country</form:label>
-                    <form:input path="country" class="form-control"/>
+                    <form:label path="locationId">Location</form:label>
+                    <form:checkboxes path="locationId" items="${location}" itemLabel="city"/>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-secondary" type="reset">Clear</button>
